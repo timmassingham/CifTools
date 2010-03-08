@@ -45,6 +45,7 @@ CIFDATA readCIFfromFile ( const char * fn, const XFILE_MODE mode);
 CIFDATA readCIFfromStream ( XFILE * ayb_fp );
 CIFDATA readCIFfromDir ( const char * fn, const uint32_t lane, const uint32_t tile, const XFILE_MODE mode);
 bool writeCIFtoFile ( const CIFDATA  cif, const char * fn, const XFILE_MODE mode);
+bool writeCIFtoStream ( const CIFDATA  cif, XFILE * ayb_fp);
 bool write2CIFfile ( const char * fn, const XFILE_MODE mode, const encInt  intensities, const uint16_t firstcycle, const uint32_t ncycle, const uint32_t ncluster, const uint8_t nbyte);
 void showCIF ( XFILE * ayb_fp, const CIFDATA cif);
 CIFDATA spliceCIF(const CIFDATA cif, uint32_t ncycle, uint32_t offset);

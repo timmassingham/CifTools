@@ -7,7 +7,7 @@ LDFLAGS =  -lm -lz -lbz2
 INCFLAGS = 
 objects = cif.o xio.o
 
-all: cifinfo cifsplit
+all: cifinfo cifsplit cifjoin
 
 cifinfo: $(objects)
 	$(CC) $(CFLAGS) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $(objects) cifinfo.c

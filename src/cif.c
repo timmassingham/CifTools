@@ -288,6 +288,7 @@ bool write2CIFstream ( XFILE * ayb_fp, const encInt  intensities, const uint16_t
 
 
 bool write2CIFfile ( const char * fn, const XFILE_MODE mode, const encInt  intensities, const uint16_t firstcycle, const uint32_t ncycle, const uint32_t ncluster, const uint8_t nbyte){
+    if(NULL==fn){ return false;}
     XFILE * ayb_fp = xfopen(fn,mode,"wb");
     if ( NULL==ayb_fp){ return false;}
     bool ret = write2CIFstream(ayb_fp,intensities,firstcycle,ncycle,ncluster,nbyte);
@@ -296,7 +297,16 @@ bool write2CIFfile ( const char * fn, const XFILE_MODE mode, const encInt  inten
 }
 
 bool writeCIFtoFile ( const CIFDATA const cif, const char * fn, const XFILE_MODE mode){
+    if(NULL==cif){ return false;}
+    if(NULL==fn){ return false;}
 	return write2CIFfile(fn,mode,cif->intensity,cif->firstcycle,cif->ncycle,cif->ncluster,cif->datasize);
+}
+
+bool writeCIFtoStream ( const CIFDATA  cif, XFILE * ayb_fp){
+    if(NULL==cif){ return false;}
+    if(NULL==ayb_fp){ return false;}
+    bool ret = write2CIFstream(ayb_fp,cif->intensity,cif->firstcycle,cif->ncycle,cif->ncluster,cif->datasize);
+    return ret;
 }
 
 
