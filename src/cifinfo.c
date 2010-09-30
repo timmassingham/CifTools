@@ -23,8 +23,10 @@
 #include <getopt.h>
 #include "xio.h"
 #include "cif.h"
+#include "utility.h"
+
 #define PROGNAME "cifinfo"
-#define validate(A,B) if(!(A)){return B;}
+
 
 void fprint_usage( FILE * fp){
     validate(NULL!=fp,);
@@ -71,15 +73,31 @@ void fprint_help( FILE * fp){
 }
 
 static struct option longopts[] = {
+    { "cluster",    required_argument, NULL, 'l' },
+    { "cycle",      required_argument, NULL, 'y' },
     { "help",       no_argument,       NULL, 'h' },
     { "licence",    no_argument,       NULL, 0 },
 };
 
+typedef struct {
+   uint32_t ncycle,ncluster;
+} OPT;
+OPT opt = {5,5};
+
+typedef char * CSTRING;
+unsigned int parse_uint( const CSTRING str){
+   validate(NULL!=str,0);
+   unsigned int n=0;
+   sscanf(str,"%u",&n);
+   return n;
+}
 
 void parse_arguments( const int argc, char * const argv[] ){
         int ch;
-        while ((ch = getopt_long(argc, argv, "h", longopts, NULL)) != -1){
+        while ((ch = getopt_long(argc, argv, "l:y:h", longopts, NULL)) != -1){
         switch(ch){
+	    case 'l': opt.ncluster = parse_uint(optarg); break;
+	    case 'y': opt.ncycle = parse_uint(optarg); break;
             case 'h':
                 fprint_usage(stderr);
                 fprint_help(stderr);
@@ -101,12 +119,12 @@ int main(int argc, char * argv[]){
 
     if( argc==0 ){
         CIFDATA cif = readCIFfromStream(xstdin);
-        showCIF(xstdout,cif);
+        showCIF(xstdout,cif,opt.ncluster,opt.ncycle);
         free_cif(cif);
     } else {
         for( uint32_t i=0 ; i<argc ; i++){
             CIFDATA cif = readCIFfromFile(argv[i],XFILE_UNKNOWN);
-            showCIF(xstdout,cif);
+            showCIF(xstdout,cif,opt.ncluster,opt.ncycle);
             free_cif(cif);
         }
     }

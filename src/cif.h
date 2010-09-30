@@ -25,20 +25,22 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define NCHANNEL 4
+#define NCHANNEL    4
 typedef union { int8_t * i8; int16_t * i16; int32_t * i32;} encInt;
+
+struct cifData {
+    uint8_t version, datasize;
+    uint16_t firstcycle, ncycle;
+    uint32_t ncluster;
+    encInt intensity;
+};
 typedef struct cifData * CIFDATA;
 
-// Access
-uint8_t cif_get_version( const CIFDATA cif );
-uint8_t cif_get_datasize( const CIFDATA cif );
-uint16_t cif_get_firstcycle( const CIFDATA cif );
-uint16_t cif_get_ncycle( const CIFDATA cif );
-uint32_t cif_get_ncluster( const CIFDATA cif );
-encInt cif_get_const_intensities( const CIFDATA cif);
 
 // Deletion
+CIFDATA new_cif ( void );
 void free_cif ( CIFDATA cif);
+void showCIF ( XFILE * ayb_fp, const CIFDATA cif, uint32_t mcluster, uint32_t mcycle);
 
 // Other 
 CIFDATA readCIFfromFile ( const char * fn, const XFILE_MODE mode);
@@ -47,7 +49,6 @@ CIFDATA readCIFfromDir ( const char * fn, const uint32_t lane, const uint32_t ti
 bool writeCIFtoFile ( const CIFDATA  cif, const char * fn, const XFILE_MODE mode);
 bool writeCIFtoStream ( const CIFDATA  cif, XFILE * ayb_fp);
 bool write2CIFfile ( const char * fn, const XFILE_MODE mode, const encInt  intensities, const uint16_t firstcycle, const uint32_t ncycle, const uint32_t ncluster, const uint8_t nbyte);
-void showCIF ( XFILE * ayb_fp, const CIFDATA cif);
 CIFDATA spliceCIF(const CIFDATA cif, uint32_t ncycle, uint32_t offset);
 
 #endif

@@ -159,7 +159,7 @@ fprintf(stdout,"Reading from %s\n",argv[0]);
     }
     
     if(0==opt.offset){
-        opt.offset = cif_get_ncycle(cif)/2;
+        opt.offset = cif->ncycle/2;
     }
 
     // Sort out template for name
@@ -183,7 +183,7 @@ fprintf(stdout,"Reading from %s\n",argv[0]);
     free_cif(newcif);
     // End 2
     cifname[name_offset] = '2';
-    newcif = spliceCIF(cif,cif_get_ncycle(cif)-opt.offset,opt.offset);
+    newcif = spliceCIF(cif,cif->ncycle-opt.offset,opt.offset);
     writeCIFtoFile(newcif,cifname,XFILE_RAW);
     free_cif(newcif);
 

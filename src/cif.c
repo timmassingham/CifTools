@@ -452,7 +452,7 @@ CIFDATA readCIFfromDir ( const char * root, const uint32_t lane, const uint32_t 
    if(0!=ret){ goto readCIF_error; }
    free(cif_glob);
 
-   const uint32_t ncycle = g.gl_matchc;
+   const uint32_t ncycle = g.gl_pathc;
 
    cif = new_cif();
    cif->ncycle = ncycle;
@@ -474,7 +474,7 @@ readCIF_error:
 
 
 /*  Print routine for CIF structure */
-void showCIF ( XFILE * ayb_fp, const CIFDATA const cif){
+void showCIF ( XFILE * ayb_fp, const CIFDATA const cif, uint32_t mcluster, uint32_t mcycle){
 	static const char * basechar = "ACGT"; 
 	if ( NULL==ayb_fp) return;
 	if ( NULL==cif) return;
@@ -484,8 +484,8 @@ void showCIF ( XFILE * ayb_fp, const CIFDATA const cif){
 	xfprintf( ayb_fp, "ncycles = %u, of which the first is cycle number %u\n", cif->ncycle,cif->firstcycle);
 	xfprintf( ayb_fp, "nclusters = %u\n", cif->ncluster);
 	
-	uint32_t mcluster = (cif->ncluster>5)?5:cif->ncluster;
-	uint32_t mcycle   = (cif->ncycle>5)?5:cif->ncycle;
+	mcluster = (cif->ncluster>mcluster)?mcluster:cif->ncluster;
+	mcycle   = (cif->ncycle>mcycle)?mcycle:cif->ncycle;
 	
 	
 	for ( int cluster=0 ; cluster<mcluster ; cluster++){
@@ -536,7 +536,7 @@ int main ( int argc, char * argv[] ){
 timestamp("Starting\n",stderr);
    CIFDATA cif = readCIFfromDir(argv[3],lane,tile,XFILE_RAW);
 timestamp("Read\n",stderr);
-    showCIF(xstdout,cif);
+    showCIF(xstdout,cif,5,5);
 timestamp("Splitting\n",stderr);
     CIFDATA newcif = spliceCIF(cif, cif->ncycle/2, 0);
 timestamp("Writing\n",stderr);
@@ -546,7 +546,7 @@ timestamp("Writing\n",stderr);
 timestamp("Reading new\n",stderr);
 	cif = readCIFfromFile (argv[4],XFILE_RAW);
 timestamp("Done\n",stderr);
-	showCIF(xstdout,cif);
+	showCIF(xstdout,cif,5,5);
 	free_cif(cif);
 
 	return EXIT_SUCCESS;
