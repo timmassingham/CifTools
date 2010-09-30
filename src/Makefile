@@ -5,9 +5,9 @@ CFLAGS = -Wall -O3 -funroll-loops -DNDEBUG -fomit-frame-pointer -std=gnu99 -msse
 LD = ld
 LDFLAGS =  -lm -lz -lbz2
 INCFLAGS = 
-objects = cif.o xio.o
+objects = cif.o xio.o tile.o cluster.o matrix.o
 
-all: cifinfo cifsplit cifjoin
+all: cifinfo cifsplit cifjoin int2cif
 
 cifinfo: $(objects)
 	$(CC) $(CFLAGS) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $(objects) cifinfo.c
@@ -17,6 +17,9 @@ cifsplit: $(objects)
 
 cifjoin: $(objects)
 	$(CC) $(CFLAGS) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $(objects) cifjoin.c
+
+int2cif: $(objects)
+	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $(objects) int2cif.c
 
 .c.o:
 	$(CC) $(CFLAGS) $(INCFLAGS) -o $@ -c $<
