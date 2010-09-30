@@ -36,7 +36,7 @@ void fprint_usage( FILE * fp){
 "Convert int format files to CIF\n"
 "\n"
 "Usage:\n"
-"\t" PROGNAME " file ...\n"
+"\t" PROGNAME " -r readlen file ...\n"
 "\t" PROGNAME " --help\n"
 "\t" PROGNAME " --licence\n"
 "\n"
@@ -64,6 +64,9 @@ void fprint_help( FILE * fp){
 /*
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
+"\n"
+"-r, --readlen read length [required argument]\n"
+"\tNumber of cycles in intensity data to read.\n"
 "\n"
 "-h, --help\n"
 "\tDisplay information about usage and exit.\n"

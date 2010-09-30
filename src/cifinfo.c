@@ -35,7 +35,7 @@ void fprint_usage( FILE * fp){
 "Display information about CIF format files\n"
 "\n"
 "Usage:\n"
-"\t" PROGNAME " file1 file2 ...\n"
+"\t" PROGNAME " [-l ncluster] [-y ncycle] file1 file2 ...\n"
 "\t" PROGNAME " --help\n"
 "\t" PROGNAME " --licence\n"
 "\n"
@@ -63,6 +63,12 @@ void fprint_help( FILE * fp){
 /*
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
+"\n"
+"-l, --cluster ncluster [default: 5]\n"
+"\tNumber of clusters to show.\n"
+"\n"
+"-y, --cycle ncycle [default: 5]\n"
+"\tNumber of cycles to show.\n"
 "\n"
 "-h, --help\n"
 "\tDisplay information about usage and exit.\n"
