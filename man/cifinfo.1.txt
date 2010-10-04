@@ -1,0 +1,56 @@
+cifinfo(1)
+===========
+
+NAME
+----
+cifinfo - Display information about a tile intensity data from an
+Illumina sequencing machine.
+
+SYNOPSIS
+--------
+
+*cifinfo*   [-l ncluster] [-y ncycle] file1 file2 ...
+
+*cifinfo*   --help
+
+*cifinfo*   --licence
+
+DESCRIPTION
+-----------
+For each file given on the commandline, cifinfo displays some basic
+information about the CIF file including the number of cycles it
+contains and the total number of clusters. If no file is give, cifinfo
+reads from stdin. The intensity data is displayed for the first few 
+cycles of the first few cluster (configurable using the -l and -y options).
+
+*-l, --cluster* ncluster [default: 5]::
+Number of clusters to show.
+
+*-y, --cycle* ncycle [default: 5]::
+Number of cycles to show.
+
+*-h, --help*::
+Display information about usage and exit.
+
+*--licence*::
+Display licence terms and exit.
+
+AUTHOR
+------
+Written by Tim Massingham, tim.massingham@ebi.ac.uk
+
+RESOURCES
+---------
+See <http://www.ebi.ac.uk/~timm/ciftools/>.
+
+COPYING
+-------
+Copyright (C) 2010 European Bioinformatics Institute. Free use of this 
+software is granted under the terms of the GNU General Public License 
+(GPL). See the file *COPYING* in the ciftools distribution or  
+<http://www.gnu.org/licenses/gpl.html> for details.
+
+SEE ALSO
+--------
+ciftools(1), cifboot(1), cifjoin(1), cifsplit(1), int2cif(1)
+

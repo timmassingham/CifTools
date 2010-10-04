@@ -1,0 +1,65 @@
+cifsplit(1)
+===========
+
+NAME
+----
+cifsplit - Split a CIF into two by cycle.
+
+SYNOPSIS
+--------
+
+*cifsplit*   [-o offset] [-s suffix] file
+
+*cifsplit*   --help
+
+*cifsplit*   --licence
+
+DESCRIPTION
+-----------
+Split a CIF file containing intensity data from the Illumina
+sequencing platform into two CIF files, the first containing cycles 
+1 to offset (default offset being half the number of cycles) and the
+second containing the remaining cycles. Examples where this is useful 
+include the common case where a run was paired end and it is desirable 
+to look at the ends separately, and more exotic cases like TRADIS data 
+where the first few cycles are all from the same template and so not 
+interesting.
+
+If no file is given on the commandline, cifsplit reads from stdin.
+
+*-o, --offset* offset [default: half number of cycles of file]::
+Offset of second read in paired-end file. Run is split into two
+at this offset, so pairs do not have to have equal length. The default is to
+split the read equally in two.
+
+*-s, --suffix* suffix [default: "_end"]::
+Suffix which to add to names to identify pairs. The original file
+"s_4_33.cif" will have pairs "s_4_33_end1.cif" and "s_4_33_end2.cif"
+by default. If the read was read from stdin, pairs are written to
+"intensities_end1.cif" and "intensities_end2.cif"
+
+*-h, --help*::
+Display information about usage and exit.
+
+*--licence*::
+Display licence terms and exit.
+
+AUTHOR
+------
+Written by Tim Massingham, tim.massingham@ebi.ac.uk
+
+RESOURCES
+---------
+See <http://www.ebi.ac.uk/~timm/ciftools/>.
+
+COPYING
+-------
+Copyright (C) 2010 European Bioinformatics Institute. Free use of this 
+software is granted under the terms of the GNU General Public License 
+(GPL). See the file *COPYING* in the ciftools distribution or  
+<http://www.gnu.org/licenses/gpl.html> for details.
+
+SEE ALSO
+--------
+ciftools(1), cifboot(1), cifinfo(1), cifjoin(1), int2cif(1)
+

@@ -1,0 +1,56 @@
+int2cif(1)
+===========
+
+NAME
+----
+int2cif - Convert the old-style INTensity format files into CIF files.
+
+SYNOPSIS
+--------
+
+*int2cif*   -r readlen file
+
+*int2cif*   --help
+
+*int2cif*   --licence
+
+DESCRIPTION
+-----------
+Converts the depreciate INT style format intensity files for the
+Illumina platform (e.g. s_2_0001_int.txt.gz) into CIF format files. If
+no file is given on the commandline, intensity information is read
+from stdin (and assumed to be uncompressed). The binary CIF output is
+written to stdout.
+
+General INT data is stored to one decimal place whereas CIF intensity 
+data is rounded to the nearest integer, so some precision is lost
+during the conversion.
+
+*-r, --readlen* read length [required argument]::
+Number of cycles in intensity data to read.
+
+*-h, --help*::
+Display information about usage and exit.
+
+*--licence*::
+Display licence terms and exit.
+
+AUTHOR
+------
+Written by Tim Massingham, tim.massingham@ebi.ac.uk
+
+RESOURCES
+---------
+See <http://www.ebi.ac.uk/~timm/ciftools/>.
+
+COPYING
+-------
+Copyright (C) 2010 European Bioinformatics Institute. Free use of this 
+software is granted under the terms of the GNU General Public License 
+(GPL). See the file *COPYING* in the ciftools distribution or  
+<http://www.gnu.org/licenses/gpl.html> for details.
+
+SEE ALSO
+--------
+ciftools(1), cifboot(1), cifinfo(1), cifjoin(1), cifsplit(1)
+

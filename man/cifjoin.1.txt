@@ -1,0 +1,56 @@
+cifjoin(1)
+===========
+
+NAME
+----
+cifjoin - Join several CIF files from an Illumina machine together
+
+SYNOPSIS
+--------
+
+*cifjoin*   [-l lane] [-t tile] run-folder
+
+*cifjoin*   --help
+
+*cifjoin*   --licence
+
+DESCRIPTION
+-----------
+Within a run folder, the intensity data for each cycle is stored in
+a separate CIF file so each file contains one cycle of one tile of one
+lane. Given a lane, tile and run folder, cifjoin merges the
+appropriate CIF files into a single CIF file containing all cycles
+which is appropriate for use with base calling software. The resulting
+CIF file is written to stdout.
+
+*-l, --lane* [default: 4]::
+Lane of tile to create full CIF file.
+
+*-t, --tile* [default: 33]::
+Tile number to create full CIF file of.
+
+*-h, --help*::
+Display information about usage and exit.
+
+*--licence*::
+Display licence terms and exit.
+
+AUTHOR
+------
+Written by Tim Massingham, tim.massingham@ebi.ac.uk
+
+RESOURCES
+---------
+See <http://www.ebi.ac.uk/~timm/ciftools/>.
+
+COPYING
+-------
+Copyright (C) 2010 European Bioinformatics Institute. Free use of this 
+software is granted under the terms of the GNU General Public License 
+(GPL). See the file *COPYING* in the ciftools distribution or  
+<http://www.gnu.org/licenses/gpl.html> for details.
+
+SEE ALSO
+--------
+ciftools(1), cifboot(1), cifinfo(1), cifsplit(1), int2cif(1)
+

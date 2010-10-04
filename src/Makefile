@@ -8,6 +8,7 @@ LD = ld
 LDFLAGS =  -lm -lz -lbz2
 INCFLAGS = 
 DEFINES =
+MANDIR = ../man
 objects = cif.o xio.o tile.o cluster.o matrix.o
 
 all: cifinfo cifsplit cifjoin int2cif cifboot
@@ -30,14 +31,20 @@ int2cif: $(objects)
 sfmt.o: 
 	gcc -o sfmt.o $(CFLAGSSFMT) -DMEXP=19937 -ISFMT-src-1.3/ -c SFMT-src-1.3/SFMT.c
 
-.c.o:
+%.o : %.c
 	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o $@ -c $<
 
 .f.o:
 	g77 -O3 -o $@ -c $<
 
-clean:
-	rm -f ../bin/* *~ *.o  *.obj  *.exe *.lib && cd SFMT-src-1.3/ && make clean
+%.1 : %.1.txt
+	cd $(MANDIR) && a2x -d manpage -f manpage $<
 
-archive: clean
-	cd ../.. && tar zcf ciftool.tgz --exclude=.git --exclude=archive --exclude=test ciftool
+clean:
+	rm -f ../bin/* *~ *.o  *.obj  *.exe *.lib $(MANDIR)/*.1 && cd SFMT-src-1.3/ && make clean
+
+archive: clean man
+	cd ../.. && tar zcf ciftools.tgz --exclude=.git --exclude=archive --exclude=test ciftool
+
+man: $(MANDIR)/ciftools.1 $(MANDIR)/cifboot.1 $(MANDIR)/cifinfo.1 $(MANDIR)/cifjoin.1 $(MANDIR)/cifsplit.1 $(MANDIR)/int2cif.1
+

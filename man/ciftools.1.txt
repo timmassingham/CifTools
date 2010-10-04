@@ -1,0 +1,46 @@
+ciftools(1)
+===========
+
+NAME
+----
+ciftools - tools for manipulating CIF files produced by the Illumina
+sequencing platform
+
+SYNOPSIS
+--------
+*ciftools* is a suite of several utilities for manipulating CIF files.
+See their individual manpages for details.
+
+*cifboot*::
+	Produce bootstrap replicates of a CIF file.
+*cifinfo*::
+	Display information about CIF file.
+*cifjoin*::
+	Join several CIF files together into one, for example: merge
+all the individual cycles in a run folder into a single CIF file.
+*cifsplit*::
+	Split a CIF into two by cycle. A run into two files containing the
+paired ends for example.
+*int2cif*::
+	Convert the old-style INTensity format files into CIF files.
+Some loss of precision will occur.
+
+AUTHOR
+------
+Written by Tim Massingham, tim.massingham@ebi.ac.uk
+
+RESOURCES
+---------
+See <http://www.ebi.ac.uk/~timm/ciftools/>.
+
+COPYING
+-------
+Copyright (C) 2010 European Bioinformatics Institute. Free use of this 
+software is granted under the terms of the GNU General Public License 
+(GPL). See the file *COPYING* in the ciftools distribution or  
+<http://www.gnu.org/licenses/gpl.html> for details.
+
+SEE ALSO
+--------
+cifboot(1), cifinfo(1), cifjoin(1), cifsplit(1), int2cif(1)
+
