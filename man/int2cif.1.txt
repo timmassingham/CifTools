@@ -24,7 +24,8 @@ written to stdout.
 
 General INT data is stored to one decimal place whereas CIF intensity 
 data is rounded to the nearest integer, so some precision is lost
-during the conversion.
+during the conversion. The CIF format does not contain the coordinates
+of the clusters.
 
 *-r, --readlen* read length [required argument]::
 Number of cycles in intensity data to read.
