@@ -88,6 +88,7 @@ static struct option longopts[] = {
     { "readlen",    required_argument, NULL, 'r' },
     { "help",       no_argument,       NULL, 'h' },
     { "licence",    no_argument,       NULL, 0 },
+    { NULL, 0 , NULL, 0}
 };
 
 typedef struct {
