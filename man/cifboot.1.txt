@@ -87,5 +87,5 @@ three-clause BSD style licence. Seee
 
 SEE ALSO
 --------
-ciftools(1), cifinfo(1), cifjoin(1), cifsplit(1), int2cif(1)
+ciftools(1), cifcat(1), cifinfo(1), cifjoin(1), cifsplit(1), int2cif(1)
 

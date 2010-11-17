@@ -52,5 +52,5 @@ software is granted under the terms of the GNU General Public License
 
 SEE ALSO
 --------
-ciftools(1), cifboot(1), cifjoin(1), cifsplit(1), int2cif(1)
+ciftools(1), cifboot(1), cifcat(1), cifjoin(1), cifsplit(1), int2cif(1)
 

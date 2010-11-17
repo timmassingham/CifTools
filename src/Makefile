@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -O3 -funroll-loops -DNDEBUG -fomit-frame-pointer -std=gnu99 -msse2 
-#CFLAGS = -std=c99 -Wall -g -std=gnu99 -fstack-protector-all -D_FORTIFY_SOURCE=2
+#CFLAGS = -Wall -O3 -funroll-loops -DNDEBUG -fomit-frame-pointer -std=gnu99 -msse2 
+CFLAGS = -std=c99 -Wall -g -std=gnu99 -fstack-protector-all -D_FORTIFY_SOURCE=2
 #CFLAGS = -pg -std=gnu99 
 CFLAGSSFMT = -msse2 -DHAVE_SSE2 -O9 -finline-functions -fomit-frame-pointer \
 -DNDEBUG -fno-strict-aliasing --param max-inline-insns-single=1800 -std=c99
@@ -11,22 +11,25 @@ DEFINES =
 MANDIR = ../man
 objects = cif.o xio.o tile.o cluster.o matrix.o
 
-all: cifinfo cifsplit cifjoin int2cif cifboot
+all: cifinfo cifsplit cifjoin int2cif cifboot cifcat
 
-cifinfo: $(objects)
-	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $(objects) cifinfo.c
+cifinfo: $(objects) cifinfo.o
+	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
 
-cifsplit: $(objects)
-	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $(objects) cifsplit.c
+cifsplit: $(objects) cifsplit.o
+	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
 
-cifjoin: $(objects)
-	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $(objects) cifjoin.c
+cifjoin: $(objects) cifjoin.o
+	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
 
 cifboot: cifboot.o $(objects) sfmt.o random.o
 	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^ 
 
-int2cif: $(objects)
-	 $(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $(objects) int2cif.c
+cifcat: $(objects) cifcat.o
+	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
+
+int2cif: $(objects) int2cif.o
+	 $(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
 
 sfmt.o: 
 	gcc -o sfmt.o $(CFLAGSSFMT) -DMEXP=19937 -ISFMT-src-1.3/ -c SFMT-src-1.3/SFMT.c
