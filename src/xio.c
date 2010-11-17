@@ -147,7 +147,7 @@ int xnotnull_file(XFILE * fp){
 
 void xfclose(XFILE * fp){
     if(!_xinit){initialise_aybstd();}
-    if( ! xnotnull_file(fp) ){return;}
+    if( NULL==fp || !xnotnull_file(fp) ){return;}
 
     switch( fp->mode ){
 	  case XFILE_UNKNOWN:
@@ -185,7 +185,8 @@ XFILE * xfopen(const char * restrict fn, const XFILE_MODE mode, const char * mod
 
     if (fail){
         perror(fn);
-        xnull_file(fp);
+        free(fp);
+	return NULL;
     }
 
     return fp;
