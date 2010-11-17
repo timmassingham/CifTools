@@ -74,7 +74,6 @@ void free_cif ( CIFDATA cif ){
 
 
 bool __attribute__((const)) isCifAllowedDatasize ( const uint8_t datasize );
-CIFDATA readCifHeader (XFILE * ayb_fp);
 encInt readCifIntensities ( XFILE * ayb_fp , const CIFDATA const header, encInt intensties );
 encInt readEncodedFloats ( XFILE  * ayb_fp, const uint32_t nfloat, const uint8_t nbyte, encInt  tmp_mem );
 bool writeCifHeader ( XFILE * ayb_fp, const CIFDATA const header);
@@ -333,11 +332,13 @@ bool consistent_cif_headers( const CIFDATA cif1, const CIFDATA cif2 ){
 }
 
 CIFDATA cif_add_file( const char * fn, const XFILE_MODE mode, CIFDATA cif ){
+   CIFDATA newheader = NULL;
+   XFILE * ayb_fp = NULL;
    if ( NULL==fn){ goto cif_add_error;}
-   XFILE * ayb_fp = xfopen(fn,mode,"rb");
+   ayb_fp = xfopen(fn,mode,"rb");
    if ( NULL==ayb_fp){ goto cif_add_error;}
 
-   CIFDATA newheader = readCifHeader(ayb_fp);
+   newheader = readCifHeader(ayb_fp);
    if ( NULL==newheader ){ goto cif_add_error;}
    if ( NULL==cif->intensity.i8 ){ 
       cif->ncluster = newheader->ncluster;
@@ -483,7 +484,9 @@ void showCIF ( XFILE * ayb_fp, const CIFDATA const cif, uint32_t mcluster, uint3
 	xfprintf( ayb_fp, "datasize = %u bytes\n", cif->datasize );
 	xfprintf( ayb_fp, "ncycles = %u, of which the first is cycle number %u\n", cif->ncycle,cif->firstcycle);
 	xfprintf( ayb_fp, "nclusters = %u\n", cif->ncluster);
-	
+
+	if(0==mcluster){ mcluster = cif->ncluster; }
+	if(0==mcycle){ mcycle = cif->ncycle; }
 	mcluster = (cif->ncluster>mcluster)?mcluster:cif->ncluster;
 	mcycle   = (cif->ncycle>mcycle)?mcycle:cif->ncycle;
 	
@@ -506,10 +509,10 @@ void showCIF ( XFILE * ayb_fp, const CIFDATA const cif, uint32_t mcluster, uint3
 		}
 	}
 	if( mcluster!=cif->ncluster){
-		xfprintf(ayb_fp,"%u clusters omitted. ", cif->ncluster - 5 );
+		xfprintf(ayb_fp,"%u clusters omitted. ", cif->ncluster - mcluster );
 	}
 	if( mcycle!=cif->ncycle ){
-		xfprintf(ayb_fp,"%u cycles omitted. ", cif->ncycle - 5 );
+		xfprintf(ayb_fp,"%u cycles omitted. ", cif->ncycle - mcycle );
 	}
 	xfputc('\n',ayb_fp);
 }
