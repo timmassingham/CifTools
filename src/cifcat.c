@@ -125,7 +125,7 @@ int main(int argc, char * argv[]){
 	if(NULL==fp){
 	    warnx("Failed to open %s for input.",argv_ctr[0]);
 	} else {
-	    fprintf(stderr,"Reading from %s ... ",argv_ctr[0]);
+	    fprintf(stderr,"Scanning %s ... ",argv_ctr[0]);
 	    CIFDATA head = readCifHeader(fp);
 	    if(NULL==head){
                 fputs("Error: not cif format.\n",stderr);
@@ -175,6 +175,8 @@ int main(int argc, char * argv[]){
 	argv_ctr++;
     }
 
+    fputs("Reading clusters.\n",stderr);
+    fprintf(stderr,"Writing %u clusters.\n",ncluster);
     writeCIFtoStream(newcif,xstdout);
     free_cif(newcif);
 
