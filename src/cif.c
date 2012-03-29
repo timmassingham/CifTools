@@ -75,11 +75,11 @@ void free_cif ( CIFDATA cif ){
 
 bool __attribute__((const)) isCifAllowedDatasize ( const uint8_t datasize );
 encInt readCifIntensities ( XFILE * ayb_fp , const CIFDATA const header, encInt intensties );
-encInt readEncodedFloats ( XFILE  * ayb_fp, const uint32_t nfloat, const uint8_t nbyte, encInt  tmp_mem );
+encInt readEncodedFloats ( XFILE  * ayb_fp, const size_t nfloat, const uint8_t nbyte, encInt  tmp_mem );
 bool writeCifHeader ( XFILE * ayb_fp, const CIFDATA const header);
 bool writeCifIntensities ( XFILE * ayb_fp , const CIFDATA const header,
                            const encInt intensities );
-bool writeEncodedFloats ( XFILE * ayb_fp , const uint32_t nfloat , const uint8_t nbyte, 
+bool writeEncodedFloats ( XFILE * ayb_fp , const size_t nfloat , const uint8_t nbyte, 
                           const encInt floats );
 
 
@@ -145,13 +145,13 @@ CIFDATA readCifHeader (XFILE * ayb_fp){
 
 /* Read intensities */
 encInt readCifIntensities ( XFILE * ayb_fp , const CIFDATA header, encInt  intensities ){
-    const uint32_t size = NCHANNEL * header->ncluster * header->ncycle;
+    const size_t size = NCHANNEL * header->ncluster * header->ncycle;
     intensities = readEncodedFloats(ayb_fp,size,header->datasize,intensities);
     return intensities;
 }
 
 /* Read an array of encoded floats and return array */
-encInt readEncodedFloats ( XFILE  * ayb_fp, const uint32_t nfloat, const uint8_t nbyte, encInt intensities ){
+encInt readEncodedFloats ( XFILE  * ayb_fp, const size_t nfloat, const uint8_t nbyte, encInt intensities ){
     assert(1==nbyte || 2==nbyte || 4==nbyte);
     assert(nfloat>0);
     
@@ -185,7 +185,7 @@ bool writeCifHeader ( XFILE * ayb_fp, const CIFDATA const header){
  */
 bool writeCifIntensities ( XFILE * ayb_fp , const CIFDATA  header,
                            const encInt  intensities ){
-    const uint32_t nfloat = NCHANNEL * header->ncycle * header->ncluster;
+    const size_t nfloat = NCHANNEL * header->ncycle * header->ncluster;
     return writeEncodedFloats ( ayb_fp, nfloat, header->datasize, intensities );
 }
 
@@ -212,7 +212,7 @@ int32_t __attribute__((const)) getMin (const uint8_t nbyte){
     return 0.; // Never reach here
 }   
 
-/*void * encodeFloats ( const void * restrict floats, const uint32_t nfloat , const uint8_t nbyte){
+/*void * encodeFloats ( const void * restrict floats, const size_t nfloat , const uint8_t nbyte){
     assert(NULL!=floats);
     assert(isCifAllowedDatasize(nbyte));
 
@@ -226,7 +226,7 @@ int32_t __attribute__((const)) getMin (const uint8_t nbyte){
     switch(nbyte){
         case 1:
             mem8 = malloc(nfloat*sizeof(int8_t));
-            for ( uint32_t i=0; i<nfloat ; i++){
+            for ( size_t i=0; i<nfloat ; i++){
                 f = floats[i];
                 f = (f<enc_max)?f:enc_max;
                 f = (f>enc_min)?f:enc_min;
@@ -236,7 +236,7 @@ int32_t __attribute__((const)) getMin (const uint8_t nbyte){
             break;
         case 2:
             mem16 = malloc(nfloat*sizeof(int16_t));
-            for ( uint32_t i=0; i<nfloat ; i++){
+            for ( size_t i=0; i<nfloat ; i++){
                 f = floats[i];
                 f = (f<enc_max)?f:enc_max;
                 f = (f>enc_min)?f:enc_min;
@@ -246,7 +246,7 @@ int32_t __attribute__((const)) getMin (const uint8_t nbyte){
             break; 
         case 4:
             mem32 = malloc(nfloat*sizeof(int32_t));
-            for ( uint32_t i=0; i<nfloat ; i++){
+            for ( size_t i=0; i<nfloat ; i++){
                 f = floats[i];
                 f = (f<enc_max)?f:enc_max;
                 f = (f>enc_min)?f:enc_min;
@@ -263,7 +263,7 @@ int32_t __attribute__((const)) getMin (const uint8_t nbyte){
 
 /*  Write floats in encoded format
  */
-bool writeEncodedFloats ( XFILE * ayb_fp , const uint32_t nfloat , const uint8_t nbyte, 
+bool writeEncodedFloats ( XFILE * ayb_fp , const size_t nfloat , const uint8_t nbyte, 
                           const encInt  intensities ){
     xfwrite( intensities.i8, nbyte, nfloat, ayb_fp);
     return true;
@@ -347,7 +347,7 @@ CIFDATA cif_add_file( const char * fn, const XFILE_MODE mode, CIFDATA cif ){
       if ( NULL==cif->intensity.i8 ){ goto cif_add_error;}
    }
    if ( ! consistent_cif_headers(cif,newheader) ){ goto cif_add_error;}
-   const uint32_t offset = (newheader->firstcycle - 1) * cif->ncluster * NCHANNEL;
+   const size_t offset = (newheader->firstcycle - 1) * cif->ncluster * NCHANNEL;
    encInt mem = {.i8=NULL};
    switch(cif->datasize){
        case 1: mem.i8 = cif->intensity.i8 + offset; break;
@@ -409,7 +409,7 @@ CIFDATA new_cif ( void ){
    return cif;
 }
 
-CIFDATA spliceCIF(const CIFDATA cif, uint32_t ncycle, uint32_t offset){
+CIFDATA spliceCIF(const CIFDATA cif, uint32_t ncycle, size_t offset){
     if(NULL==cif){return NULL;}
     if(offset+ncycle>cif->ncycle){ return NULL;}
 
@@ -418,11 +418,11 @@ CIFDATA spliceCIF(const CIFDATA cif, uint32_t ncycle, uint32_t offset){
     newcif->firstcycle = 1;
     newcif->ncycle = ncycle;
 
-    const uint32_t nobs = NCHANNEL*newcif->ncluster*newcif->ncycle;
+    const size_t nobs = NCHANNEL*newcif->ncluster*newcif->ncycle;
     newcif->intensity.i8 = calloc(nobs,newcif->datasize);
     if(NULL==newcif->intensity.i8){ goto clean;}
     
-    uint32_t offset8 = offset*NCHANNEL*newcif->ncluster*cif->datasize;
+    size_t offset8 = offset*NCHANNEL*newcif->ncluster*cif->datasize;
     memcpy(newcif->intensity.i8,cif->intensity.i8+offset8,nobs*newcif->datasize);
     
     return newcif;

@@ -45,10 +45,10 @@ MAT new_MAT( const int nrow, const int ncol );
 void free_MAT( MAT mat );
 MAT copy_MAT( const MAT mat);
 MAT copyinto_MAT( MAT matout, const MAT matin);
-MAT new_MAT_from_array( const uint32_t nrow, const uint32_t ncol, const real_t * x);
+MAT new_MAT_from_array( const int nrow, const int ncol, const real_t * x);
 
 // Input, output
-void show_MAT( XFILE * fp, const MAT mat, const uint32_t mrow, const uint32_t mcol);
+void show_MAT( XFILE * fp, const MAT mat, const int mrow, const int mcol);
 
 // Identities
 bool is_square(const MAT mat);

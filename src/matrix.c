@@ -62,7 +62,7 @@ MAT new_MAT( const int nrow, const int ncol ){
      return mat;
 }
 
-MAT new_MAT_from_array( const uint32_t nrow, const uint32_t ncol, const real_t * x){
+MAT new_MAT_from_array( const int nrow, const int ncol, const real_t * x){
     if(NULL==x){ return NULL;}
     MAT mat = new_MAT(nrow,ncol);
     if(NULL==mat){return NULL;}
@@ -128,14 +128,14 @@ MAT vectranspose ( const MAT mat, const unsigned int p ){
      return vtmat;
 }
 
-void show_MAT ( XFILE * fp, const MAT mat, const uint32_t mrow, const uint32_t mcol){
+void show_MAT ( XFILE * fp, const MAT mat, const int mrow, const int mcol){
     if(NULL==fp){ return;}
     if(NULL==mat){ return;}
     
-    const uint32_t nrow = mat->nrow;
-    const uint32_t ncol = mat->ncol;
-    const uint32_t maxrow = (mrow!=0 && mrow<nrow)?mrow:nrow;
-    const uint32_t maxcol = (mcol!=0 && mcol<ncol)?mcol:ncol;
+    const int nrow = mat->nrow;
+    const int ncol = mat->ncol;
+    const int maxrow = (mrow!=0 && mrow<nrow)?mrow:nrow;
+    const int maxcol = (mcol!=0 && mcol<ncol)?mcol:ncol;
     for( int row=0 ; row<maxrow ; row++){
         xfprintf(fp,"%d:",row+1);
         for ( int col=0 ; col<maxcol ; col++){
@@ -175,9 +175,9 @@ bool is_square(const MAT mat){
 MAT symmeteriseL2U( MAT mat){
     validate(NULL!=mat,NULL);
     validate(mat->nrow==mat->ncol,NULL);
-    const uint32_t n = mat->ncol;
-    for ( uint32_t col=0 ; col<n ; col++){
-        for ( uint32_t row=col ; row<n ; row++){
+    const int n = mat->ncol;
+    for ( int col=0 ; col<n ; col++){
+        for ( int row=col ; row<n ; row++){
             mat->x[row*n+col] = mat->x[col*n+row];
         }
     }
@@ -208,9 +208,9 @@ MAT trim_MAT( MAT mat, const int mrow, const int mcol, const bool forwards){
     validate(mrow<=mat->nrow,NULL);
     validate(mcol<=mat->ncol,NULL);
     if(forwards==false){ errx(EXIT_FAILURE,"Forwards==false not implemented in %s (%s:%d)\n",__func__,__FILE__,__LINE__);}
-    for ( uint32_t col=0 ; col<mcol ; col++){
-        uint32_t midx = col*mrow;
-        uint32_t nidx = col*mat->nrow;
+    for ( int col=0 ; col<mcol ; col++){
+        int midx = col*mrow;
+        int nidx = col*mat->nrow;
         memmove(mat->x+midx,mat->x+nidx,mrow*sizeof(real_t));
     }
     mat->nrow = mrow;
@@ -227,16 +227,16 @@ MAT * block_diagonal_MAT( const MAT mat, const int n){
     // Create memory
     MAT * mats = calloc(nelts,sizeof(*mats));
     if(NULL==mats){ goto cleanup; }
-    for ( uint32_t i=0 ; i<nelts ; i++){
+    for ( int i=0 ; i<nelts ; i++){
         mats[i] = new_MAT(n,n);
         if(NULL==mats[i]){ goto cleanup;}
     }
     // Copy into diagonals
-    for ( uint32_t i=0 ; i<nelts ; i++){
-        for ( uint32_t col=0 ; col<n ; col++){
-            const uint32_t oldcol = i*n+col;
-            for ( uint32_t row=0 ; row<n ; row++){
-                const uint32_t oldrow = i*n+row;
+    for ( int i=0 ; i<nelts ; i++){
+        for ( int col=0 ; col<n ; col++){
+            const int oldcol = i*n+col;
+            for ( int row=0 ; row<n ; row++){
+                const int oldrow = i*n+row;
                 mats[i]->x[col*n+row] = mat->x[oldcol*mat->nrow+oldrow];
             }
         }
@@ -245,7 +245,7 @@ MAT * block_diagonal_MAT( const MAT mat, const int n){
     
 cleanup:
     if(NULL!=mats){
-        for ( uint32_t i=0 ; i<nelts ; i++){
+        for ( int i=0 ; i<nelts ; i++){
             free_MAT(mats[i]);
         }
     }
@@ -255,8 +255,8 @@ cleanup:
 
 MAT scale_MAT(MAT mat, const real_t f){
     validate(NULL!=mat,NULL);
-    const uint32_t nelt = mat->ncol * mat->nrow;
-    for ( uint32_t elt=0 ; elt<nelt ; elt++){
+    const int nelt = mat->ncol * mat->nrow;
+    for ( int elt=0 ; elt<nelt ; elt++){
             mat->x[elt] *= f;
     }
     return mat;

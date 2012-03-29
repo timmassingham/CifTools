@@ -214,7 +214,7 @@ int main(int argc, char * argv[]){
 
 	// Do Sampling
         for ( unsigned int j=0 ; j<cifboot->ncluster ; j++){
-           uint32_t idx = gen_rand64()%cif->ncluster;
+           uint64_t idx = gen_rand64()%cif->ncluster;
            for( int cy=0 ; cy<cif->ncycle ; cy++){
                for( int base=0 ; base<4 ; base++){
                    cifboot->intensity.i16[(cy*4+base)*cifboot->ncluster+j] = cif->intensity.i16[(cy*4+base)*cif->ncluster+idx];
