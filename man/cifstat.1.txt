@@ -1,0 +1,51 @@
+cifstat(1)
+===========
+
+NAME
+----
+cifstat - Display statistics about a tile's intensity data from an
+Illumina sequencing machine.
+
+SYNOPSIS
+--------
+
+*cifstato*   file1 file2 ...
+
+*cifstat*   --help
+
+*cifstat*   --licence
+
+DESCRIPTION
+-----------
+For each file given on the commandline, cifstat displays some basic
+statistics about the CIF file including the mean intensity in each
+channel, the total number of zeros at each cycle and tabulating the
+number of zeros cycles per cluster. If no file is give, cifstat
+reads from stdin.
+
+
+*-h, --help*::
+Display information about usage and exit.
+
+*--licence*::
+Display licence terms and exit.
+
+AUTHOR
+------
+Written by Tim Massingham, tim.massingham@ebi.ac.uk
+
+RESOURCES
+---------
+See <http://www.ebi.ac.uk/~timm/ciftools/>.
+
+COPYING
+-------
+Copyright (C) 2010 European Bioinformatics Institute. Free use of this 
+software is granted under the terms of the GNU General Public License 
+(GPL). See the file *COPYING* in the ciftools distribution or  
+<http://www.gnu.org/licenses/gpl.html> for details.
+
+SEE ALSO
+--------
+ciftools(1), cifboot(1), cifcat(1), cifjoin(1), cifsplit(1), int2cif(1)
+

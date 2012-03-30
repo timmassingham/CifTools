@@ -57,7 +57,7 @@ archive: clean man
 
 man: man_troff man_html
 
-man_troff: $(MANDIR)/ciftools.1 $(MANDIR)/cifboot.1 $(MANDIR)/cifcat.1 $(MANDIR)/cifinfo.1 $(MANDIR)/cifjoin.1 $(MANDIR)/cifsplit.1 $(MANDIR)/int2cif.1
+man_troff: $(MANDIR)/ciftools.1 $(MANDIR)/cifboot.1 $(MANDIR)/cifcat.1 $(MANDIR)/cifinfo.1 $(MANDIR)/cifjoin.1 $(MANDIR)/cifsplit.1 $(MANDIR)/cifstat.1 $(MANDIR)/int2cif.1 
 
-man_html: $(MANDIR)/ciftools.1.html $(MANDIR)/cifboot.1.html $(MANDIR)/cifcat.1.html $(MANDIR)/cifinfo.1.html $(MANDIR)/cifjoin.1.html $(MANDIR)/cifsplit.1.html $(MANDIR)/int2cif.1.html
+man_html: $(MANDIR)/ciftools.1.html $(MANDIR)/cifboot.1.html $(MANDIR)/cifcat.1.html $(MANDIR)/cifinfo.1.html $(MANDIR)/cifjoin.1.html $(MANDIR)/cifsplit.1.html $(MANDIR)/cifstat.1.html $(MANDIR)/int2cif.1.html
 
