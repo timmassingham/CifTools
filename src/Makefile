@@ -11,9 +11,12 @@ DEFINES =
 MANDIR = ../man
 objects = cif.o xio.o tile.o cluster.o matrix.o
 
-all: cifinfo cifsplit cifjoin int2cif cifboot cifcat
+all: cifinfo cifsplit cifjoin int2cif cifboot cifcat cifstat
 
 cifinfo: $(objects) cifinfo.o
+	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
+
+cifstat: $(objects) cifstat.o
 	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
 
 cifsplit: $(objects) cifsplit.o
