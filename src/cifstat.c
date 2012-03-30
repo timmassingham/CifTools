@@ -121,7 +121,7 @@ void showStat(XFILE * xfp, const CIFDATA cif){
 		meanInts[i] = 0.0;
 	}
 	uint64_t numZeros[ncycle];
-	uint64_t nZeroCycle[ncycle];
+	uint64_t nZeroCycle[ncycle+1];
 	for ( size_t i=0 ; i<ncycle ; i++){
 		numZeros[i] = 0;
 		nZeroCycle[i] = 0;
@@ -153,10 +153,12 @@ void showStat(XFILE * xfp, const CIFDATA cif){
 	}
 
 	// Print results
+	xfprintf(xfp,"Ncluster %8d\nNcycle   %8d\n\n",ncluster,ncycle);
 	xfprintf(xfp,"Cycle\tMeanA\tMeanC\tMeanG\tMeanT\tNumZeros\tTotalZeros\n");
+	xfprintf(xfp,"%4d\t\t\t\t\t\t\t%8d\n",0,nZeroCycle[0]);
 	for ( size_t cy=0 ; cy<ncycle ; cy++){
-		xfprintf(xfp,"%d\t%4.1f\t%4.1f\t%4.1f\t%4.1f\t%d\t\t%d\n",cy+1,meanInts[cy*NCHANNEL],meanInts[cy*NCHANNEL+1],
-				meanInts[cy*NCHANNEL+2],meanInts[cy*NCHANNEL+3],numZeros[cy],nZeroCycle[cy]);
+		xfprintf(xfp,"%4d\t%6.1f\t%4.1f\t%6.1f\t%6.1f\t%8d\t%8d\n",cy+1,meanInts[cy*NCHANNEL],meanInts[cy*NCHANNEL+1],
+				meanInts[cy*NCHANNEL+2],meanInts[cy*NCHANNEL+3],numZeros[cy],nZeroCycle[cy+1]);
 	}
 }
 
