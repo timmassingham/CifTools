@@ -67,7 +67,7 @@ licence.
 
 RESOURCES
 ---------
-See <http://www.ebi.ac.uk/~timm/ciftools/>.
+See <http://www.ebi.ac.uk/goldman-srv/ciftools/>.
 
 REFERENCES
 ----------
@@ -75,9 +75,9 @@ Erfron, B. (1994) An Introduction to the Bootstrap. Chapman and Hall.
 
 COPYING
 -------
-Copyright (C) 2010 European Bioinformatics Institute. Free use of this 
-software is granted under the terms of the GNU General Public License 
-(GPL). See the file *COPYING* in the ciftools distribution or  
+Copyright (C) 2010 European Bioinformatics Institute. Free use of this
+software is granted under the terms of the GNU General Public License
+(GPL). See the file *COPYING* in the ciftools distribution or
 <http://www.gnu.org/licenses/gpl.html> for details.
 
 The included SFMT library is copyright (C) 2006,2007 Mutsuo Saito,

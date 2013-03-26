@@ -17,12 +17,12 @@ SYNOPSIS
 DESCRIPTION
 -----------
 Split a CIF file containing intensity data from the Illumina
-sequencing platform into two CIF files, the first containing cycles 
+sequencing platform into two CIF files, the first containing cycles
 1 to offset (default offset being half the number of cycles) and the
-second containing the remaining cycles. Examples where this is useful 
-include the common case where a run was paired end and it is desirable 
-to look at the ends separately, and more exotic cases like TRADIS data 
-where the first few cycles are all from the same template and so not 
+second containing the remaining cycles. Examples where this is useful
+include the common case where a run was paired end and it is desirable
+to look at the ends separately, and more exotic cases like TRADIS data
+where the first few cycles are all from the same template and so not
 interesting.
 
 If no file is given on the commandline, cifsplit reads from stdin.
@@ -50,13 +50,13 @@ Written by Tim Massingham, tim.massingham@ebi.ac.uk
 
 RESOURCES
 ---------
-See <http://www.ebi.ac.uk/~timm/ciftools/>.
+See <http://www.ebi.ac.uk/goldman-srv/ciftools/>.
 
 COPYING
 -------
-Copyright (C) 2010 European Bioinformatics Institute. Free use of this 
-software is granted under the terms of the GNU General Public License 
-(GPL). See the file *COPYING* in the ciftools distribution or  
+Copyright (C) 2010 European Bioinformatics Institute. Free use of this
+software is granted under the terms of the GNU General Public License
+(GPL). See the file *COPYING* in the ciftools distribution or
 <http://www.gnu.org/licenses/gpl.html> for details.
 
 SEE ALSO
