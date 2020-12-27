@@ -14,25 +14,25 @@ objects = cif.o xio.o tile.o cluster.o matrix.o
 all: cifinfo cifsplit cifjoin int2cif cifboot cifcat cifstat
 
 cifinfo: $(objects) cifinfo.o
-	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
+	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $^ $(LDFLAGS)
 
 cifstat: $(objects) cifstat.o
-	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
+	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $^ $(LDFLAGS)
 
 cifsplit: $(objects) cifsplit.o
-	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
+	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $^ $(LDFLAGS)
 
 cifjoin: $(objects) cifjoin.o
-	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
+	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $^ $(LDFLAGS)
 
 cifboot: cifboot.o $(objects) sfmt.o random.o
-	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^ 
+	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $^ $(LDFLAGS)
 
 cifcat: $(objects) cifcat.o
-	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
+	$(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $^ $(LDFLAGS)
 
 int2cif: $(objects) int2cif.o
-	 $(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $(LDFLAGS) $^
+	 $(CC) $(CFLAGS) $(DEFINES) $(INCFLAGS) -o ../bin/$@ $^ $(LDFLAGS)
 
 sfmt.o: 
 	gcc -o sfmt.o $(CFLAGSSFMT) -DMEXP=19937 -ISFMT-src-1.3/ -c SFMT-src-1.3/SFMT.c
